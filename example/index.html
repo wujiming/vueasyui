@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>vueasyui- vuejs And easyUi</title>
+    <link rel="stylesheet" type="text/css" href="easyui/themes/default/easyui.css">
+    <link rel="stylesheet" type="text/css" href="easyui/themes/icon.css">
+</head>
+<body>
+<div id="layout">
+    <h2>Basic Layout</h2>
+
+    <p>The layout contains north,south,west,east and center regions.</p>
+
+    <div style="margin:20px 0;"></div>
+    <div v-e-layout style="width:700px;height:350px;">
+        <div data-options="region:'north'" style="height:50px">north</div>
+        <div data-options="region:'south',split:true" style="height:50px;">south</div>
+        <div data-options="region:'east',split:true" title="East" style="width:100px;">east</div>
+        <div data-options="region:'west',split:true" title="West" style="width:100px;">West</div>
+        <div data-options="region:'center',title:'Main Title',iconCls:'icon-ok'">
+            center
+        </div>
+    </div>
+
+</div>
+<script src="./easyui/jquery.min.js"></script>
+<script src="./easyui/jquery.easyui.min.js"></script>
+<script src="./vue/vue.js"></script>
+<script src="../dist/vue-easyui.js"></script>
+<script>
+    new Vue({
+        el: '#layout',
+        data: {
+            options: {}
+        }
+    })
+</script>
+</body>
+</html>

@@ -1,0 +1,27 @@
+{
+  "name": "vueasyui",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "build": "WEBPACK_ENV=build webpack",
+    "dev": "WEBPACK_ENV=dev webpack --progress --colors --watch"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/wujiming/vueasyui.git"
+  },
+  "keywords": [
+    "vuejs",
+    "easyui"
+  ],
+  "author": "wujiming <wzslw@163.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/wujiming/vueasyui/issues"
+  },
+  "homepage": "https://github.com/wujiming/vueasyui#readme",
+  "devDependencies": {
+    "webpack": "^1.13.2"
+  }
+}
