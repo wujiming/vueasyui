@@ -2,7 +2,11 @@ module.exports = {
     bind: function () {
     },
     inserted: function (el, binding, vnode, oldVnode) {
-        $(el).layout()
+        var modifiers = binding.modifiers
+        var fit = !!modifiers.fit
+        $(el).layout({
+            fit: fit
+        })
     },
     update: function () {
     },
