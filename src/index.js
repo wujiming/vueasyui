@@ -1,5 +1,3 @@
-var layout = require('./layout')
-
 
 function plugin(Vue, options) {
     if (plugin.installed) {
@@ -7,7 +5,8 @@ function plugin(Vue, options) {
         return
     }
 
-    Vue.directive('e-layout', layout)
+    Vue.directive('e-layout', require('./layout'))
+    Vue.directive('e-datagrid', require('./datagrid'))
 
 }
 

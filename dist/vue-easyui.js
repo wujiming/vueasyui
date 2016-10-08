@@ -54,16 +54,15 @@ return /******/ (function(modules) { // webpackBootstrap
 /* 0 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var layout = __webpack_require__(1)
-	
 	
 	function plugin(Vue, options) {
 	    if (plugin.installed) {
 	        console.warn('already installed.')
 	        return
 	    }
-	
-	    Vue.directive('e-layout', layout)
+
+		Vue.directive('e-layout', __webpack_require__(1))
+		Vue.directive('e-datagrid', __webpack_require__(2))
 	
 	}
 	
@@ -89,6 +88,66 @@ return /******/ (function(modules) { // webpackBootstrap
 	        $(el).layout({
 	            fit: fit
 	        })
+		},
+		update: function () {
+		},
+		componentUpdated: function () {
+		},
+		unbind: function () {
+		}
+	}
+
+		/***/
+	},
+	/* 2 */
+	/***/ function (module, exports) {
+
+		module.exports = {
+			bind: function () {
+
+			},
+			inserted: function (el, binding, vnode, oldVnode) {
+				var events = ['onLoadSuccess',
+					'onLoadError',
+					'onBeforeLoad',
+					'onClickRow',
+					'onDblClickRow',
+					'onClickCell',
+					'onDblClickCell',
+					'onSortColumn',
+					'onResizeColumn',
+					'onSelect',
+					'onUnselect',
+					'onSelectAll',
+					'onUnselectAll',
+					'onCheck',
+					'onUncheck',
+					'onCheckAll',
+					'onUncheckAll',
+					'onBeforeEdit',
+					'onAfterEdit',
+					'onCancelEdit',
+					'onHeaderContextMenu',
+					''
+				]
+				var context = vnode.context;
+				var options = binding.value;
+
+				$.each(events, function (i, e) {
+					var f = options[e]
+
+					if (f) {
+						if ($.isFunction(f)) {
+							//do nothing
+						} else if ($.type(f) === 'string') {
+							console.log(context[f])
+							options[e] = context[f]
+						} else {
+							console.warn(f + ' is invalidate')
+						}
+					}
+				})
+				$(el).datagrid(options)
 	    },
 	    update: function () {
 	    },

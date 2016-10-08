@@ -5,14 +5,14 @@
     <title>vueasyui- vuejs And easyUi</title>
     <link rel="stylesheet" type="text/css" href="easyui/themes/default/easyui.css">
     <link rel="stylesheet" type="text/css" href="easyui/themes/icon.css">
+    <script src="./easyui/jquery.min.js"></script>
+    <script src="./easyui/jquery.easyui.min.js"></script>
+    <script src="./vue/vue.js"></script>
+    <script src="../dist/vue-easyui.js"></script>
 </head>
 <body>
 <div id="layout">
-    <h2>Basic Layout</h2>
 
-    <p>The layout contains north,south,west,east and center regions.</p>
-
-    <div style="margin:20px 0;"></div>
     <div v-e-layout.fit style="width:700px;height:350px;">
         <div data-options="region:'north'" style="height:50px">north</div>
         <div data-options="region:'south',split:true" style="height:50px;">south</div>
@@ -22,19 +22,63 @@
             center
         </div>
     </div>
-
 </div>
-<script src="./easyui/jquery.min.js"></script>
-<script src="./easyui/jquery.easyui.min.js"></script>
-<script src="./vue/vue.js"></script>
-<script src="../dist/vue-easyui.js"></script>
 <script>
     new Vue({
         el: '#layout',
         data: {
-            options: {}
         }
     })
 </script>
+
+<div id="datagrid">
+
+    <table v-e-datagrid="options">
+        <thead>
+        <tr>
+            <th data-options="field:'code'">Code</th>
+            <th data-options="field:'name'">Name</th>
+            <th data-options="field:'price'">Price</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <td>001</td>
+            <td>name1</td>
+            <td>2323</td>
+        </tr>
+        <tr>
+            <td>002</td>
+            <td>name2</td>
+            <td>4612</td>
+        </tr>
+        </tbody>
+    </table>
+
+</div>
+<script>
+    (function () {
+        new Vue({
+            el: '#datagrid',
+            data: {
+                options: {
+                    title: 'datagrid',
+                    fitColumns: true,
+                    singleSelect: true,
+                    onDblClickRow: 'show',
+                    onDblClickCell: function (rowIndex, field, value) {
+                        console.log(rowIndex, field, value)
+                    }
+                }
+            },
+            methods: {
+                show: function (rowIndex, rowData) {
+                    console.log(rowIndex, rowData)
+                }
+            }
+        })
+    })()
+</script>
+
 </body>
 </html>
