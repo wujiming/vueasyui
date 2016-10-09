@@ -1,7 +1,6 @@
 
 function plugin(Vue, options) {
     if (plugin.installed) {
-        console.warn('already installed.')
         return
     }
 

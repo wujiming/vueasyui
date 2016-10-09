@@ -36,7 +36,6 @@ module.exports = {
                 if ($.isFunction(f)) {
                     //do nothing
                 } else if ($.type(f) === 'string') {
-                    console.log(context[f])
                     options[e] = context[f]
                 } else {
                     console.warn(f + ' is invalidate')
