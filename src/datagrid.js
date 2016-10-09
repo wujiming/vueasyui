@@ -43,7 +43,8 @@ module.exports = {
         })
         $(el).datagrid(options)
     },
-    update: function () {
+    update: function (el, binding, vnode, oldVnode) {
+        console.log(el, binding, vnode, oldVnode)
     },
     componentUpdated: function () {
     },
