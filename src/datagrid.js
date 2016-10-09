@@ -44,7 +44,10 @@ module.exports = {
         $(el).datagrid(options)
     },
     update: function (el, binding, vnode, oldVnode) {
-        console.log(el, binding, vnode, oldVnode)
+        var oldValue = binding.oldValue
+        var value = binding.value
+
+        console.log(JSON.stringify(oldValue), JSON.stringify(value))
     },
     componentUpdated: function () {
     },
