@@ -27,8 +27,7 @@ module.exports = {
             'onRowContextMenu'
         ]
         var context = vnode.context;
-        var options = binding.value;
-
+        var options = $.extend(binding.value, binding.modifiers)
         $.each(events, function (i, e) {
             var f = options[e]
 

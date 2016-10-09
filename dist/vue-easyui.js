@@ -62,7 +62,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 		Vue.directive('e-layout', __webpack_require__(1))
 		Vue.directive('e-datagrid', __webpack_require__(2))
-	
+		Vue.directive('e-accordion', __webpack_require__(3))
 	}
 	
 	plugin.version = '0.1'
@@ -70,7 +70,6 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = plugin
 	
 	if (typeof window !== 'undefined' && window.Vue) {
-	    console.log('auto install vueasyui.')
 	    window.Vue.use(plugin)
 	}
 
@@ -130,8 +129,7 @@ return /******/ (function(modules) { // webpackBootstrap
 					'onRowContextMenu'
 				]
 				var context = vnode.context;
-				var options = binding.value;
-
+				var options = $.extend(binding.value, binding.modifiers)
 				$.each(events, function (i, e) {
 					var f = options[e]
 
@@ -146,6 +144,26 @@ return /******/ (function(modules) { // webpackBootstrap
 					}
 				})
 				$(el).datagrid(options)
+			},
+			update: function () {
+			},
+			componentUpdated: function () {
+			},
+			unbind: function () {
+			}
+		}
+
+		/***/
+	},
+	/* 3 */
+	/***/ function (module, exports) {
+
+		module.exports = {
+			bind: function () {
+			},
+			inserted: function (el, binding, vnode, oldVnode) {
+				var options = $.extend(binding.value, binding.modifiers)
+				$(el).accordion(options)
 	    },
 	    update: function () {
 	    },
