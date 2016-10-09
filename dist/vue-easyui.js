@@ -60,9 +60,11 @@ return /******/ (function(modules) { // webpackBootstrap
 	        return
 	    }
 
-		Vue.directive('e-layout', __webpack_require__(1))
-		Vue.directive('e-datagrid', __webpack_require__(2))
 		Vue.directive('e-accordion', __webpack_require__(3))
+		Vue.directive('e-datagrid', __webpack_require__(2))
+		Vue.directive('e-layout', __webpack_require__(1))
+		Vue.directive('e-tabs', __webpack_require__(4))
+	   
 	}
 	
 	plugin.version = '0.1'
@@ -164,6 +166,26 @@ return /******/ (function(modules) { // webpackBootstrap
 			inserted: function (el, binding, vnode, oldVnode) {
 				var options = $.extend(binding.value, binding.modifiers)
 				$(el).accordion(options)
+			},
+			update: function () {
+			},
+			componentUpdated: function () {
+			},
+			unbind: function () {
+			}
+		}
+
+		/***/
+	},
+	/* 4 */
+	/***/ function (module, exports) {
+
+		module.exports = {
+			bind: function () {
+			},
+			inserted: function (el, binding, vnode, oldVnode) {
+				var options = $.extend(binding.value, binding.modifiers)
+				$(el).tabs(options)
 	    },
 	    update: function () {
 	    },
