@@ -57,7 +57,6 @@ return /******/ (function(modules) { // webpackBootstrap
 	
 	function plugin(Vue, options) {
 	    if (plugin.installed) {
-	        console.warn('already installed.')
 	        return
 	    }
 
@@ -128,7 +127,7 @@ return /******/ (function(modules) { // webpackBootstrap
 					'onAfterEdit',
 					'onCancelEdit',
 					'onHeaderContextMenu',
-					''
+					'onRowContextMenu'
 				]
 				var context = vnode.context;
 				var options = binding.value;
@@ -140,7 +139,6 @@ return /******/ (function(modules) { // webpackBootstrap
 						if ($.isFunction(f)) {
 							//do nothing
 						} else if ($.type(f) === 'string') {
-							console.log(context[f])
 							options[e] = context[f]
 						} else {
 							console.warn(f + ' is invalidate')
