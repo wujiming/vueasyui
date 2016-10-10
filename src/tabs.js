@@ -1,14 +1,8 @@
+var bindEvents = require('./vueasyui').bindEvents
+var events = 'onLoad,onSelect,onUnselect,onBeforeClose,onClose,onAdd,onUpdate,onContextMenu'.split(',')
 module.exports = {
-    bind: function () {
-    },
     inserted: function (el, binding, vnode, oldVnode) {
-        var options = $.extend(binding.value, binding.modifiers)
-        $(el).tabs(options).tabs('resize')
-    },
-    update: function () {
-    },
-    componentUpdated: function () {
-    },
-    unbind: function () {
+        var options = bindEvents(binding, vnode, el, arguments, events);
+        $(el).tabs(options)
     }
 }

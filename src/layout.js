@@ -1,17 +1,8 @@
+var bindEvents = require('./vueasyui').bindEvents
+var events = 'onCollapse,onExpand,onExpand,onRemove'.split(',')
 module.exports = {
-    bind: function () {
-    },
     inserted: function (el, binding, vnode, oldVnode) {
-        var modifiers = binding.modifiers
-        var fit = !!modifiers.fit
-        $(el).layout({
-            fit: fit
-        })
-    },
-    update: function () {
-    },
-    componentUpdated: function () {
-    },
-    unbind: function () {
+        var options = bindEvents(binding, vnode, el, arguments, events);
+        $(el).layout(options)
     }
 }

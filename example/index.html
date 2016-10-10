@@ -11,72 +11,146 @@
     <script src="../dist/vue-easyui.js"></script>
 </head>
 <body>
-<div id="layout">
-
-    <div v-e-layout.fit style="width:700px;height:350px;">
-        <div data-options="region:'north'" style="height:50px">north</div>
-        <div data-options="region:'south',split:true" style="height:50px;">south</div>
-        <div data-options="region:'east',split:true" title="East" style="width:100px;">east</div>
-        <div data-options="region:'west',split:true" title="West" style="width:100px;">West</div>
-        <div data-options="region:'center',title:'Main Title',iconCls:'icon-ok'">
-            center
-        </div>
-    </div>
-</div>
-<script>
-    new Vue({
-        el: '#layout',
-        data: {
-        }
-    })
-</script>
 
 <div id="datagrid">
-
-    <table v-e-datagrid="options">
+    <table v-e-datagrid="options" ref="grid1">
         <thead>
         <tr>
-            <th data-options="field:'code'">Code</th>
-            <th data-options="field:'name'">Name</th>
-            <th data-options="field:'price'">Price</th>
+            <th data-options="field:'itemid',width:80">Item ID</th>
+            <th data-options="field:'productid',width:100">Product</th>
+            <th data-options="field:'listprice',width:80,align:'right'">List Price</th>
+            <th data-options="field:'unitcost',width:80,align:'right'">Unit Cost</th>
+            <th data-options="field:'attr1',width:250">Attribute</th>
+            <th data-options="field:'status',width:60,align:'center'">Status</th>
         </tr>
         </thead>
-        <tbody>
-        <tr>
-            <td>001</td>
-            <td>name1</td>
-            <td>2323</td>
-        </tr>
-        <tr>
-            <td>002</td>
-            <td>name2</td>
-            <td>4612</td>
-        </tr>
-        </tbody>
     </table>
 
 </div>
+
 <script>
     (function () {
-        new Vue({
+        var data = [
+            {
+                "productid": "FI-SW-01",
+                "productname": "Koi",
+                "unitcost": 10.00,
+                "status": "P",
+                "listprice": 36.50,
+                "attr1": "Large",
+                "itemid": "EST-1"
+            },
+            {
+                "productid": "K9-DL-01",
+                "productname": "Dalmation",
+                "unitcost": 12.00,
+                "status": "P",
+                "listprice": 18.50,
+                "attr1": "Spotted Adult Female",
+                "itemid": "EST-10"
+            },
+            {
+                "productid": "RP-SN-01",
+                "productname": "Rattlesnake",
+                "unitcost": 12.00,
+                "status": "P",
+                "listprice": 38.50,
+                "attr1": "Venomless",
+                "itemid": "EST-11"
+            },
+            {
+                "productid": "RP-SN-01",
+                "productname": "Rattlesnake",
+                "unitcost": 12.00,
+                "status": "P",
+                "listprice": 26.50,
+                "attr1": "Rattleless",
+                "itemid": "EST-12"
+            },
+            {
+                "productid": "RP-LI-02",
+                "productname": "Iguana",
+                "unitcost": 12.00,
+                "status": "P",
+                "listprice": 35.50,
+                "attr1": "Green Adult",
+                "itemid": "EST-13"
+            },
+            {
+                "productid": "FL-DSH-01",
+                "productname": "Manx",
+                "unitcost": 12.00,
+                "status": "P",
+                "listprice": 158.50,
+                "attr1": "Tailless",
+                "itemid": "EST-14"
+            },
+            {
+                "productid": "FL-DSH-01",
+                "productname": "Manx",
+                "unitcost": 12.00,
+                "status": "P",
+                "listprice": 83.50,
+                "attr1": "With tail",
+                "itemid": "EST-15"
+            },
+            {
+                "productid": "FL-DLH-02",
+                "productname": "Persian",
+                "unitcost": 12.00,
+                "status": "P",
+                "listprice": 23.50,
+                "attr1": "Adult Female",
+                "itemid": "EST-16"
+            },
+            {
+                "productid": "FL-DLH-02",
+                "productname": "Persian",
+                "unitcost": 12.00,
+                "status": "P",
+                "listprice": 89.50,
+                "attr1": "Adult Male",
+                "itemid": "EST-17"
+            },
+            {
+                "productid": "AV-CB-01",
+                "productname": "Amazon Parrot",
+                "unitcost": 92.00,
+                "status": "P",
+                "listprice": 63.50,
+                "attr1": "Adult Male",
+                "itemid": "EST-18"
+            }
+        ]
+        var vm = new Vue({
             el: '#datagrid',
             data: {
                 options: {
-                    title: 'datagrid',
+                    title: 'datagrid1',
                     fitColumns: true,
                     singleSelect: true,
-                    onDblClickRow: 'show',
-                    onDblClickCell: function (rowIndex, field, value) {
-                        console.log(rowIndex, field, value)
-                    }
+                    data: []
                 }
             },
+            created: function () {
+                this.$on('onDblClickRow', this.edit)
+            },
             methods: {
-                show: function (rowIndex, rowData) {
-                    console.log(rowIndex, rowData)
+                edit: function (e) {
+                    var grid1 = this.$refs.grid1;
+                    console.log(grid1)
+                }
+            },
+            watch: {
+                'options.data': function (value, oldValue) {
+                    $(this.$refs.grid1).datagrid('loadData', value)
                 }
             }
         })
+
+        setTimeout(function () {
+            vm.options.data = data
+        }, 2000)
     })()
 </script>
 

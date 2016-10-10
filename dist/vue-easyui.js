@@ -77,124 +77,97 @@ return /******/ (function(modules) { // webpackBootstrap
 
 /***/ },
 /* 1 */
-/***/ function(module, exports) {
+/***/ function(module, exports, __webpack_require__) {
 
+	var bindEvents = __webpack_require__(6).bindEvents
+	var events = 'onCollapse,onExpand,onExpand,onRemove'.split(',')
 	module.exports = {
-	    bind: function () {
-	    },
 	    inserted: function (el, binding, vnode, oldVnode) {
-	        var modifiers = binding.modifiers
-	        var fit = !!modifiers.fit
-	        $(el).layout({
-	            fit: fit
-	        })
-	    },
-	    update: function () {
-	    },
-	    componentUpdated: function () {
-	    },
-	    unbind: function () {
+	        var options = bindEvents(binding, vnode, el, arguments,events);
+	        $(el).layout(options)
 	    }
 	}
 
 /***/ },
 /* 2 */
-/***/ function(module, exports) {
+/***/ function(module, exports, __webpack_require__) {
 
+	var bindEvents = __webpack_require__(6).bindEvents
+	var events = ['onLoadSuccess',
+	    'onLoadError',
+	    'onBeforeLoad',
+	    'onClickRow',
+	    'onDblClickRow',
+	    'onClickCell',
+	    'onDblClickCell',
+	    'onSortColumn',
+	    'onResizeColumn',
+	    'onSelect',
+	    'onUnselect',
+	    'onSelectAll',
+	    'onUnselectAll',
+	    'onCheck',
+	    'onUncheck',
+	    'onCheckAll',
+	    'onUncheckAll',
+	    'onBeforeEdit',
+	    'onAfterEdit',
+	    'onCancelEdit',
+	    'onHeaderContextMenu',
+	    'onRowContextMenu'
+	]
 	module.exports = {
-	    bind: function () {
-	
-	    },
 	    inserted: function (el, binding, vnode, oldVnode) {
-	        var events = ['onLoadSuccess',
-	            'onLoadError',
-	            'onBeforeLoad',
-	            'onClickRow',
-	            'onDblClickRow',
-	            'onClickCell',
-	            'onDblClickCell',
-	            'onSortColumn',
-	            'onResizeColumn',
-	            'onSelect',
-	            'onUnselect',
-	            'onSelectAll',
-	            'onUnselectAll',
-	            'onCheck',
-	            'onUncheck',
-	            'onCheckAll',
-	            'onUncheckAll',
-	            'onBeforeEdit',
-	            'onAfterEdit',
-	            'onCancelEdit',
-	            'onHeaderContextMenu',
-	            'onRowContextMenu'
-	        ]
-	        var context = vnode.context;
-	        var options = $.extend(binding.value, binding.modifiers)
-	        $.each(events, function (i, e) {
-	            var f = options[e]
-	
-	            if (f) {
-	                if ($.isFunction(f)) {
-	                    //do nothing
-	                } else if ($.type(f) === 'string') {
-	                    options[e] = context[f]
-	                } else {
-	                    console.warn(f + ' is invalidate')
-	                }
-	            }
-	        })
+	        var options = bindEvents(binding, vnode, el, arguments, events);
 	        $(el).datagrid(options)
-	    },
-	    update: function (el, binding, vnode, oldVnode) {
-	        var oldValue = binding.oldValue
-	        var value = binding.value
-	
-	        console.log(JSON.stringify(oldValue), JSON.stringify(value))
-	    },
-	    componentUpdated: function () {
-	    },
-	    unbind: function () {
 	    }
 	}
 
 /***/ },
 /* 3 */
-/***/ function(module, exports) {
+/***/ function(module, exports, __webpack_require__) {
 
+	var bindEvents = __webpack_require__(6).bindEvents
+	var events = 'onSelect,onUnselect,onBeforeRemove,onRemove'.split(',')
 	module.exports = {
-	    bind: function () {
-	    },
 	    inserted: function (el, binding, vnode, oldVnode) {
-	        var options = $.extend(binding.value, binding.modifiers)
+	        var options = bindEvents(binding, vnode, el, arguments, events);
 	        $(el).accordion(options)
-	    },
-	    update: function () {
-	    },
-	    componentUpdated: function () {
-	    },
-	    unbind: function () {
 	    }
 	}
 
 /***/ },
 /* 4 */
-/***/ function(module, exports) {
+/***/ function(module, exports, __webpack_require__) {
 
+	var bindEvents = __webpack_require__(6).bindEvents
+	var events = 'onLoad,onSelect,onUnselect,onBeforeClose,onClose,onAdd,onUpdate,onContextMenu'.split(',')
 	module.exports = {
-	    bind: function () {
-	    },
 	    inserted: function (el, binding, vnode, oldVnode) {
-	        var options = $.extend(binding.value, binding.modifiers)
-	        $(el).tabs(options).tabs('resize')
-	    },
-	    update: function () {
-	    },
-	    componentUpdated: function () {
-	    },
-	    unbind: function () {
+	        var options = bindEvents(binding, vnode, el, arguments, events);
+	        $(el).tabs(options)
 	    }
 	}
+
+/***/ },
+/* 5 */,
+/* 6 */
+/***/ function(module, exports) {
+
+	var bindEvents = function (binding, vnode, el, events) {
+	    var ns = binding.arg ? binding.arg + '.' : ''
+	    var vm = vnode.context
+	    var options = binding.value
+	
+	    $.each(events, function (i, e) {
+	        options[e] = function () {
+	            vm.$emit(ns + e, {el: el, args: arguments})
+	        }
+	    })
+	    return options;
+	}
+	
+	exports.bindEvents = bindEvents
 
 /***/ }
 /******/ ])
