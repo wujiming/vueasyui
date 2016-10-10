@@ -138,7 +138,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	var bindEvents = function (binding, vnode, el, events) {
 	    var ns = binding.arg ? binding.arg + '.' : ''
 	    var vm = vnode.context
-	    var options = binding.value
+		var options = binding.value || {}
 	
 	    $.each(events, function (i, e) {
 	        options[e] = function () {
