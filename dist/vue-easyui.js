@@ -83,7 +83,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	var events = 'onCollapse,onExpand,onExpand,onRemove'.split(',')
 	module.exports = {
 	    inserted: function (el, binding, vnode, oldVnode) {
-			var options = bindEvents(binding, vnode, el, arguments, events);
+	        var options = bindEvents(binding, vnode, el, events);
 	        $(el).layout(options)
 	    }
 	}
@@ -93,32 +93,13 @@ return /******/ (function(modules) { // webpackBootstrap
 /***/ function(module, exports, __webpack_require__) {
 
 	var bindEvents = __webpack_require__(6).bindEvents
-	var events = ['onLoadSuccess',
-	    'onLoadError',
-	    'onBeforeLoad',
-	    'onClickRow',
-	    'onDblClickRow',
-	    'onClickCell',
-	    'onDblClickCell',
-	    'onSortColumn',
-	    'onResizeColumn',
-	    'onSelect',
-	    'onUnselect',
-	    'onSelectAll',
-	    'onUnselectAll',
-	    'onCheck',
-	    'onUncheck',
-	    'onCheckAll',
-	    'onUncheckAll',
-	    'onBeforeEdit',
-	    'onAfterEdit',
-	    'onCancelEdit',
-	    'onHeaderContextMenu',
-	    'onRowContextMenu'
-	]
+	var events = ('onLoadSuccess,onLoadError,onBeforeLoad,onClickRow,onDblClickRow,onClickCell,onDblClickCell,' +
+	'onSortColumn,onResizeColumn,onSelect,onUnselect,onSelectAll,onUnselectAll,onCheck,onUncheck,onCheckAll,' +
+	'onUncheckAll,onBeforeEdit,onAfterEdit,onCancelEdit,onHeaderContextMenu,onRowContextMenu').split(',')
+	
 	module.exports = {
 	    inserted: function (el, binding, vnode, oldVnode) {
-	        var options = bindEvents(binding, vnode, el, arguments, events);
+	        var options = bindEvents(binding, vnode, el, events);
 	        $(el).datagrid(options)
 	    }
 	}
@@ -131,7 +112,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	var events = 'onSelect,onUnselect,onBeforeRemove,onRemove'.split(',')
 	module.exports = {
 	    inserted: function (el, binding, vnode, oldVnode) {
-	        var options = bindEvents(binding, vnode, el, arguments, events);
+	        var options = bindEvents(binding, vnode, el, events);
 	        $(el).accordion(options)
 	    }
 	}
@@ -144,7 +125,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	var events = 'onLoad,onSelect,onUnselect,onBeforeClose,onClose,onAdd,onUpdate,onContextMenu'.split(',')
 	module.exports = {
 	    inserted: function (el, binding, vnode, oldVnode) {
-	        var options = bindEvents(binding, vnode, el, arguments, events);
+	        var options = bindEvents(binding, vnode, el, events);
 	        $(el).tabs(options)
 	    }
 	}

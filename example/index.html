@@ -11,9 +11,8 @@
     <script src="../dist/vue-easyui.js"></script>
 </head>
 <body>
-
-<div id="datagrid">
-    <table v-e-datagrid="options" ref="grid1">
+<div id='grid'>
+    <table v-e-datagrid:a="options" ref='grid1'>
         <thead>
         <tr>
             <th data-options="field:'itemid',width:80">Item ID</th>
@@ -25,12 +24,33 @@
         </tr>
         </thead>
     </table>
-
 </div>
-
 <script>
-    (function () {
-        var data = [
+    var vm = new Vue({
+        el: '#grid',
+        data: {
+            options: {
+                title: 'vueasyui grid',
+                data: []
+            }
+        },
+        created: function () {
+            this.$on('a.onDblClickRow', this.showLog)
+        },
+        methods: {
+            showLog: function (e) {
+                console.log(JSON.stringify(e))
+            }
+        },
+        watch: {
+            'options.data': function (value, oldValue) {
+                $(this.$refs.grid1).datagrid('loadData', value)
+            }
+        }
+    })
+
+    setTimeout(function () {
+        vm.options.data = [
             {
                 "productid": "FI-SW-01",
                 "productname": "Koi",
@@ -122,36 +142,7 @@
                 "itemid": "EST-18"
             }
         ]
-        var vm = new Vue({
-            el: '#datagrid',
-            data: {
-                options: {
-                    title: 'datagrid1',
-                    fitColumns: true,
-                    singleSelect: true,
-                    data: []
-                }
-            },
-            created: function () {
-                this.$on('onDblClickRow', this.edit)
-            },
-            methods: {
-                edit: function (e) {
-                    var grid1 = this.$refs.grid1;
-                    console.log(grid1)
-                }
-            },
-            watch: {
-                'options.data': function (value, oldValue) {
-                    $(this.$refs.grid1).datagrid('loadData', value)
-                }
-            }
-        })
-
-        setTimeout(function () {
-            vm.options.data = data
-        }, 2000)
-    })()
+    }, 2000)
 </script>
 
 </body>
