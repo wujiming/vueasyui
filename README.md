@@ -10,22 +10,22 @@ Vue directives for easyui.
 
 
 ### v-e-datagrid
-    ```html
-    <div id='grid'>
-       <table v-e-datagrid:grid1="options">
-       </table>
-    </div>   
-    <script>
-        new Vue({
-            el:'#grid',
-            data:{
-                options:{
-                    title:'vueasyui grid'
-                }
+```html
+<div id='grid'>
+   <table v-e-datagrid:grid1="options">
+   </table>
+</div>   
+<script>
+    new Vue({
+        el:'#grid',
+        data:{
+            options:{
+                title:'vueasyui grid'
             }
-        })
-    </script>
-    ```
+        }
+    })
+</script>
+```
 
 ## Contributing
 * Fork it !
