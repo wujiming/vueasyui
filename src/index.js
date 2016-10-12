@@ -6,6 +6,7 @@ function plugin(Vue, options) {
 
     Vue.directive('e-accordion', require('./accordion'))
     Vue.directive('e-datagrid', require('./datagrid'))
+    Vue.directive('e-dialog', require('./dialog'))
     Vue.directive('e-layout', require('./layout'))
     Vue.directive('e-tabs', require('./tabs'))
    
