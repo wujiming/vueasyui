@@ -22,6 +22,8 @@
   },
   "homepage": "https://github.com/wujiming/vueasyui#readme",
   "devDependencies": {
+    "browser-sync": "^2.17.3",
+    "browser-sync-webpack-plugin": "^1.1.3",
     "webpack": "^1.13.2"
   }
 }

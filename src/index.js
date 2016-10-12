@@ -1,4 +1,3 @@
-
 function plugin(Vue, options) {
     if (plugin.installed) {
         return

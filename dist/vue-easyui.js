@@ -54,7 +54,6 @@ return /******/ (function(modules) { // webpackBootstrap
 /* 0 */
 /***/ function(module, exports, __webpack_require__) {
 
-	
 	function plugin(Vue, options) {
 	    if (plugin.installed) {
 	        return
@@ -62,9 +61,9 @@ return /******/ (function(modules) { // webpackBootstrap
 
 		Vue.directive('e-accordion', __webpack_require__(1))
 		Vue.directive('e-datagrid', __webpack_require__(3))
-		Vue.directive('e-dialog', __webpack_require__(6))
-		Vue.directive('e-layout', __webpack_require__(4))
-		Vue.directive('e-tabs', __webpack_require__(5))
+		Vue.directive('e-dialog', __webpack_require__(4))
+		Vue.directive('e-layout', __webpack_require__(5))
+		Vue.directive('e-tabs', __webpack_require__(6))
 	   
 	}
 	
@@ -127,11 +126,23 @@ return /******/ (function(modules) { // webpackBootstrap
 			if (modifiers.clientPaging) {
 				datagrid.datagrid('clientPaging')
 			}
-	    }
+		}
 	}
 
-/***/ },
+		/***/
+	},
 	/* 4 */
+	/***/ function (module, exports) {
+
+		module.exports = {
+			inserted: function (el, binding, vnode, oldVnode) {
+				$(el).dialog()
+	    }
+
+		}
+
+/***/ },
+	/* 5 */
 /***/ function(module, exports, __webpack_require__) {
 
 		var bindEvents = __webpack_require__(2).bindEvents
@@ -144,7 +155,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	}
 
 /***/ },
-	/* 5 */
+	/* 6 */
 /***/ function(module, exports, __webpack_require__) {
 
 		var bindEvents = __webpack_require__(2).bindEvents
@@ -153,19 +164,6 @@ return /******/ (function(modules) { // webpackBootstrap
 	    inserted: function (el, binding, vnode, oldVnode) {
 	        var options = bindEvents(binding, vnode, el, events);
 	        $(el).tabs(options)
-		}
-	}
-
-		/***/
-	},
-	/* 6 */
-	/***/ function (module, exports) {
-
-
-		module.exports = {
-			inserted: function (el, binding, vnode, oldVnode) {
-				$(el).dialog()
-	
 	    }
 	}
 

@@ -3,8 +3,39 @@
 <head>
     <meta charset="UTF-8">
     <title>vueasyui- vuejs And easyUi</title>
+    <link rel="stylesheet" type="text/css" href="./example/easyui/themes/default/easyui.css">
+    <link rel="stylesheet" type="text/css" href="./example/easyui/themes/icon.css">
+    <style>
+        body {
+            margin: 0
+        }
+    </style>
 </head>
 <body>
-<a href="example/index.html">举个栗子</a>
+<div id="app">
+    <component :is="currentView"></component>
+</div>
+<script src="./example/seajs/sea.js" id="seajsnode"></script>
+<script src="./example/seajs/plugin/seajs-text.js"></script>
+
+<script src="./example/easyui/jquery.min.js"></script>
+<script src="./example/easyui/jquery.easyui.min.js"></script>
+<script src="//cdn.bootcss.com/vue/2.0.1/vue.js"></script>
+<script src="//cdn.bootcss.com/vue-router/2.0.0/vue-router.js"></script>
+<script>
+    (function () {
+        function resize() {
+            $('#app').height($(window).height())
+        }
+
+        resize()
+        $(window).resize(resize)
+        seajs.config({
+            base: './example/',
+        })
+        seajs.use('./main')
+
+    })()
+</script>
 </body>
 </html>
