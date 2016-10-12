@@ -1,13 +1,14 @@
-
 function plugin(Vue, options) {
     if (plugin.installed) {
-        console.warn('already installed.')
         return
     }
 
-    Vue.directive('e-layout', require('./layout'))
+    Vue.directive('e-accordion', require('./accordion'))
     Vue.directive('e-datagrid', require('./datagrid'))
-
+    Vue.directive('e-dialog', require('./dialog'))
+    Vue.directive('e-layout', require('./layout'))
+    Vue.directive('e-tabs', require('./tabs'))
+   
 }
 
 plugin.version = '0.1'
@@ -15,6 +16,5 @@ plugin.version = '0.1'
 module.exports = plugin
 
 if (typeof window !== 'undefined' && window.Vue) {
-    console.log('auto install vueasyui.')
     window.Vue.use(plugin)
 }

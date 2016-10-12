@@ -54,16 +54,17 @@ return /******/ (function(modules) { // webpackBootstrap
 /* 0 */
 /***/ function(module, exports, __webpack_require__) {
 
-	
 	function plugin(Vue, options) {
 	    if (plugin.installed) {
-	        console.warn('already installed.')
 	        return
 	    }
 
-		Vue.directive('e-layout', __webpack_require__(1))
-		Vue.directive('e-datagrid', __webpack_require__(2))
-	
+		Vue.directive('e-accordion', __webpack_require__(1))
+		Vue.directive('e-datagrid', __webpack_require__(3))
+		Vue.directive('e-dialog', __webpack_require__(4))
+		Vue.directive('e-layout', __webpack_require__(5))
+		Vue.directive('e-tabs', __webpack_require__(6))
+	   
 	}
 	
 	plugin.version = '0.1'
@@ -71,89 +72,98 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = plugin
 	
 	if (typeof window !== 'undefined' && window.Vue) {
-	    console.log('auto install vueasyui.')
 	    window.Vue.use(plugin)
 	}
 
 /***/ },
 /* 1 */
-/***/ function(module, exports) {
+/***/ function(module, exports, __webpack_require__) {
 
+		var bindEvents = __webpack_require__(2).bindEvents
+		var events = 'onSelect,onUnselect,onBeforeRemove,onRemove'.split(',')
 	module.exports = {
-	    bind: function () {
-	    },
 	    inserted: function (el, binding, vnode, oldVnode) {
-	        var modifiers = binding.modifiers
-	        var fit = !!modifiers.fit
-	        $(el).layout({
-	            fit: fit
-	        })
-		},
-		update: function () {
-		},
-		componentUpdated: function () {
-		},
-		unbind: function () {
+	        var options = bindEvents(binding, vnode, el, events);
+			$(el).accordion(options)
+	    }
+	}
+
+/***/ },
+/* 2 */
+	/***/ function (module, exports) {
+
+		var bindEvents = function (binding, vnode, el, events) {
+			var ns = binding.arg ? binding.arg + '.' : ''
+			var vm = vnode.context
+			var options = binding.value || {}
+
+			$.each(events, function (i, e) {
+				options[e] = function () {
+					vm.$emit(ns + e, {el: el, args: arguments})
+				}
+			})
+			return options;
+		}
+
+		exports.bindEvents = bindEvents
+
+		/***/
+	},
+	/* 3 */
+/***/ function(module, exports, __webpack_require__) {
+
+		var bindEvents = __webpack_require__(2).bindEvents
+	var events = ('onLoadSuccess,onLoadError,onBeforeLoad,onClickRow,onDblClickRow,onClickCell,onDblClickCell,' +
+	'onSortColumn,onResizeColumn,onSelect,onUnselect,onSelectAll,onUnselectAll,onCheck,onUncheck,onCheckAll,' +
+	'onUncheckAll,onBeforeEdit,onAfterEdit,onCancelEdit,onHeaderContextMenu,onRowContextMenu').split(',')
+	
+	module.exports = {
+	    inserted: function (el, binding, vnode, oldVnode) {
+			var options = bindEvents(binding, vnode, el, events)
+			var modifiers = binding.modifiers
+
+			var datagrid = $(el).datagrid(options)
+			if (modifiers.clientPaging) {
+				datagrid.datagrid('clientPaging')
+			}
 		}
 	}
 
 		/***/
 	},
-	/* 2 */
+	/* 4 */
 	/***/ function (module, exports) {
 
 		module.exports = {
-			bind: function () {
-
-			},
 			inserted: function (el, binding, vnode, oldVnode) {
-				var events = ['onLoadSuccess',
-					'onLoadError',
-					'onBeforeLoad',
-					'onClickRow',
-					'onDblClickRow',
-					'onClickCell',
-					'onDblClickCell',
-					'onSortColumn',
-					'onResizeColumn',
-					'onSelect',
-					'onUnselect',
-					'onSelectAll',
-					'onUnselectAll',
-					'onCheck',
-					'onUncheck',
-					'onCheckAll',
-					'onUncheckAll',
-					'onBeforeEdit',
-					'onAfterEdit',
-					'onCancelEdit',
-					'onHeaderContextMenu',
-					''
-				]
-				var context = vnode.context;
-				var options = binding.value;
+				$(el).dialog()
+	    }
 
-				$.each(events, function (i, e) {
-					var f = options[e]
+		}
 
-					if (f) {
-						if ($.isFunction(f)) {
-							//do nothing
-						} else if ($.type(f) === 'string') {
-							console.log(context[f])
-							options[e] = context[f]
-						} else {
-							console.warn(f + ' is invalidate')
-						}
-					}
-				})
-				$(el).datagrid(options)
-	    },
-	    update: function () {
-	    },
-	    componentUpdated: function () {
-	    },
-	    unbind: function () {
+/***/ },
+	/* 5 */
+/***/ function(module, exports, __webpack_require__) {
+
+		var bindEvents = __webpack_require__(2).bindEvents
+		var events = 'onCollapse,onExpand,onExpand,onRemove'.split(',')
+	module.exports = {
+	    inserted: function (el, binding, vnode, oldVnode) {
+	        var options = bindEvents(binding, vnode, el, events);
+			$(el).layout(options)
+	    }
+	}
+
+/***/ },
+	/* 6 */
+/***/ function(module, exports, __webpack_require__) {
+
+		var bindEvents = __webpack_require__(2).bindEvents
+	var events = 'onLoad,onSelect,onUnselect,onBeforeClose,onClose,onAdd,onUpdate,onContextMenu'.split(',')
+	module.exports = {
+	    inserted: function (el, binding, vnode, oldVnode) {
+	        var options = bindEvents(binding, vnode, el, events);
+	        $(el).tabs(options)
 	    }
 	}
 

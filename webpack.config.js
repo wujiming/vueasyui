@@ -1,4 +1,5 @@
 var webpack = require('webpack');
+var BrowserSyncPlugin = require('browser-sync-webpack-plugin');
 var path = require('path');
 
 var UglifyJsPlugin = webpack.optimize.UglifyJsPlugin;
@@ -12,6 +13,11 @@ if (env === 'build') {
     plugins.push(new UglifyJsPlugin({minimize: true}));
     outputFile = libraryName + '.min.js';
 } else {
+    plugins.push(new BrowserSyncPlugin({
+        host: 'localhost',
+        port: 3000,
+        server: {baseDir: ['./docs']}
+    }))
     outputFile = libraryName + '.js';
 }
 
