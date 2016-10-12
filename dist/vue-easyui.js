@@ -59,11 +59,11 @@ return /******/ (function(modules) { // webpackBootstrap
 	    if (plugin.installed) {
 	        return
 	    }
-	
-	    Vue.directive('e-accordion', __webpack_require__(3))
-	    Vue.directive('e-datagrid', __webpack_require__(2))
-	    Vue.directive('e-layout', __webpack_require__(1))
-	    Vue.directive('e-tabs', __webpack_require__(4))
+
+		Vue.directive('e-accordion', __webpack_require__(1))
+		Vue.directive('e-datagrid', __webpack_require__(3))
+		Vue.directive('e-layout', __webpack_require__(4))
+		Vue.directive('e-tabs', __webpack_require__(5))
 	   
 	}
 	
@@ -79,49 +79,74 @@ return /******/ (function(modules) { // webpackBootstrap
 /* 1 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var bindEvents = __webpack_require__(6).bindEvents
-	var events = 'onCollapse,onExpand,onExpand,onRemove'.split(',')
+		var bindEvents = __webpack_require__(2).bindEvents
+		var events = 'onSelect,onUnselect,onBeforeRemove,onRemove'.split(',')
 	module.exports = {
 	    inserted: function (el, binding, vnode, oldVnode) {
 	        var options = bindEvents(binding, vnode, el, events);
-	        $(el).layout(options)
+			$(el).accordion(options)
 	    }
 	}
 
 /***/ },
 /* 2 */
+	/***/ function (module, exports) {
+
+		var bindEvents = function (binding, vnode, el, events) {
+			var ns = binding.arg ? binding.arg + '.' : ''
+			var vm = vnode.context
+			var options = binding.value || {}
+
+			$.each(events, function (i, e) {
+				options[e] = function () {
+					vm.$emit(ns + e, {el: el, args: arguments})
+				}
+			})
+			return options;
+		}
+
+		exports.bindEvents = bindEvents
+
+		/***/
+	},
+	/* 3 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var bindEvents = __webpack_require__(6).bindEvents
+		var bindEvents = __webpack_require__(2).bindEvents
 	var events = ('onLoadSuccess,onLoadError,onBeforeLoad,onClickRow,onDblClickRow,onClickCell,onDblClickCell,' +
 	'onSortColumn,onResizeColumn,onSelect,onUnselect,onSelectAll,onUnselectAll,onCheck,onUncheck,onCheckAll,' +
 	'onUncheckAll,onBeforeEdit,onAfterEdit,onCancelEdit,onHeaderContextMenu,onRowContextMenu').split(',')
 	
 	module.exports = {
 	    inserted: function (el, binding, vnode, oldVnode) {
-	        var options = bindEvents(binding, vnode, el, events);
-	        $(el).datagrid(options)
+			var options = bindEvents(binding, vnode, el, events)
+			var modifiers = binding.modifiers
+
+			var datagrid = $(el).datagrid(options)
+			if (modifiers.clientPaging) {
+				datagrid.datagrid('clientPaging')
+			}
 	    }
 	}
 
 /***/ },
-/* 3 */
+	/* 4 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var bindEvents = __webpack_require__(6).bindEvents
-	var events = 'onSelect,onUnselect,onBeforeRemove,onRemove'.split(',')
+		var bindEvents = __webpack_require__(2).bindEvents
+		var events = 'onCollapse,onExpand,onExpand,onRemove'.split(',')
 	module.exports = {
 	    inserted: function (el, binding, vnode, oldVnode) {
 	        var options = bindEvents(binding, vnode, el, events);
-	        $(el).accordion(options)
+			$(el).layout(options)
 	    }
 	}
 
 /***/ },
-/* 4 */
+	/* 5 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var bindEvents = __webpack_require__(6).bindEvents
+		var bindEvents = __webpack_require__(2).bindEvents
 	var events = 'onLoad,onSelect,onUnselect,onBeforeClose,onClose,onAdd,onUpdate,onContextMenu'.split(',')
 	module.exports = {
 	    inserted: function (el, binding, vnode, oldVnode) {
@@ -129,26 +154,6 @@ return /******/ (function(modules) { // webpackBootstrap
 	        $(el).tabs(options)
 	    }
 	}
-
-/***/ },
-/* 5 */,
-/* 6 */
-/***/ function(module, exports) {
-
-	var bindEvents = function (binding, vnode, el, events) {
-	    var ns = binding.arg ? binding.arg + '.' : ''
-	    var vm = vnode.context
-		var options = binding.value || {}
-	
-	    $.each(events, function (i, e) {
-	        options[e] = function () {
-	            vm.$emit(ns + e, {el: el, args: arguments})
-	        }
-	    })
-	    return options;
-	}
-	
-	exports.bindEvents = bindEvents
 
 /***/ }
 /******/ ])
