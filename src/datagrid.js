@@ -5,7 +5,12 @@ var events = ('onLoadSuccess,onLoadError,onBeforeLoad,onClickRow,onDblClickRow,o
 
 module.exports = {
     inserted: function (el, binding, vnode, oldVnode) {
-        var options = bindEvents(binding, vnode, el, events);
-        $(el).datagrid(options)
+        var options = bindEvents(binding, vnode, el, events)
+        var modifiers = binding.modifiers
+
+        var datagrid = $(el).datagrid(options)
+        if (modifiers.clientPaging) {
+            datagrid.datagrid('clientPaging')
+        }
     }
 }
